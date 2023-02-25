@@ -12,9 +12,10 @@ class CellTest {
         assertThat(cell.isAlive).isTrue
     }
 
-    @Test
-    fun `Living cell with 3 nb stays alive`() {
-        val cell = Cell(true).tick(3)
+    @ParameterizedTest
+    @ValueSource(ints = [2,3])
+    fun `Living cell with two or three nb stays alive`(amountOfLivingNeighbours: Int) {
+        val cell = Cell(true).tick(amountOfLivingNeighbours)
         assertThat(cell.isAlive).isTrue
     }
 
