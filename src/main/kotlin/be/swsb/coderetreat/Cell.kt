@@ -2,6 +2,6 @@ package be.swsb.coderetreat
 
 data class Cell(val isAlive: Boolean) {
     fun tick(livingNeighbours: Int): Cell {
-        return this
+        return if (livingNeighbours > 3) Cell(false) else Cell(true)
     }
 }

@@ -1,9 +1,7 @@
 package be.swsb.coderetreat
 
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 
 class CellTest {
     @Test
@@ -13,8 +11,14 @@ class CellTest {
     }
 
     @Test
-    fun `Living cell with 3 nb stays avlive`() {
+    fun `Living cell with 3 nb stays alive`() {
         val cell = Cell(true).tick(3)
-        assertThat(cell.isAlive).isTrue()
+        assertThat(cell.isAlive).isTrue
+    }
+
+    @Test
+    fun `Living cell with more than 3 nb dies`() {
+        val cell = Cell(true).tick(4)
+        assertThat(cell.isAlive).isFalse
     }
 }
