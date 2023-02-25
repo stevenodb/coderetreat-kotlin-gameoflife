@@ -39,9 +39,10 @@ class CellTest {
         assertThat(cell.isAlive).isTrue
     }
 
-    @Test
-    fun `Dead cell stays dead when surround by two neighbours`() {
-        val cell = Cell(false).tick(2)
+    @ParameterizedTest
+    @ValueSource(ints = [0, 1, 2, 4, 5, 6, 7, 8])
+    fun `Dead cell remains dead when not surrounded by three neighbours`(amountOfLivingNeighbours: Int) {
+        val cell = Cell(false).tick(amountOfLivingNeighbours)
         assertThat(cell.isAlive).isFalse
     }
 }
