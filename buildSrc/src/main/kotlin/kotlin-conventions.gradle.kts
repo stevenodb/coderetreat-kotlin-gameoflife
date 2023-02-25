@@ -5,7 +5,7 @@ plugins {
     `java-library`
 }
 
-java.sourceCompatibility = JavaVersion.VERSION_11
+java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
@@ -13,7 +13,7 @@ repositories {
 
 dependencies {
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
-    implementation(platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.4.2"))
+    implementation(platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.6.4"))
 
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -21,8 +21,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
-    testImplementation("org.junit.jupiter:junit-jupiter:5.6.2")
-    testImplementation("org.assertj:assertj-core:3.14.0")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
+    testImplementation("org.assertj:assertj-core:3.24.2")
 }
 
 tasks.test {
@@ -33,6 +33,6 @@ tasks.withType<KotlinCompile> {
     kotlinOptions {
         languageVersion = "1.7"
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
 }

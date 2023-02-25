@@ -9,6 +9,6 @@ class Hello {
 
 open class HelloService {
     open fun sayGreeting(): String {
-        return Hello().greet()
+        return Hello().greet();
     }
 }
