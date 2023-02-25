@@ -1,17 +1,18 @@
 package be.swsb.coderetreat
 
-class Universe(val livingCells: List<Cell>) {
+class Universe(val livingCells: Set<Cell>) {
+    constructor(vararg livingCell:Cell): this(livingCell.toSet())
 
     fun tick(): Universe {
-        val newLivingCells = livingCells.mapNotNull { cell ->
-            when (livingNeighbourCount(cell)) {
-                in 0..1 -> null
-                in 4..8 -> null
-                else -> cell
+        val newLivingCells = livingCells.filter { cell ->
+            when (livingNeighbourCellCount(cell)) {
+                in 0..1 -> false
+                in 4..8 -> false
+                else -> true
             }
-        }.toList()
-        val deadCells = livingCells.flatMap { neighbouringCells(it) } - livingCells.toSet()
-        val birthedCells = deadCells.filter { livingNeighbourCount(it) == 3 }.toSet()
+        }.toSet()
+        val deadCells = livingCells.flatMap { neighbouringCells(it) } - livingCells
+        val birthedCells = deadCells.filter { livingNeighbourCellCount(it) == 3 }.toSet()
         return Universe(newLivingCells + birthedCells)
     }
 
@@ -20,7 +21,7 @@ class Universe(val livingCells: List<Cell>) {
         return neighbouringPairs.map { cell + it }
     }
 
-    private fun livingNeighbourCount(currentCell: Cell): Int =
+    private fun livingNeighbourCellCount(currentCell: Cell): Int =
         neighbouringCells(currentCell).count { it in livingCells }
 }
 
