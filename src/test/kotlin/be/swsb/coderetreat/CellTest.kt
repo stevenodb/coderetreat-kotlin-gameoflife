@@ -32,4 +32,16 @@ class CellTest {
         val cell = Cell(true).tick(amountOfLivingNeighbours)
         assertThat(cell.isAlive).isFalse
     }
+
+    @Test
+    fun `Dead cell comes alive when surround by three neighbours`() {
+        val cell = Cell(false).tick(3)
+        assertThat(cell.isAlive).isTrue
+    }
+
+    @Test
+    fun `Dead cell stays dead when surround by two neighbours`() {
+        val cell = Cell(false).tick(2)
+        assertThat(cell.isAlive).isFalse
+    }
 }
