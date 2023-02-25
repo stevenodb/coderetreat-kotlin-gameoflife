@@ -2,6 +2,8 @@ package be.swsb.coderetreat
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ValueSource
 
 class CellTest {
     @Test
@@ -16,9 +18,10 @@ class CellTest {
         assertThat(cell.isAlive).isTrue
     }
 
-    @Test
-    fun `Living cell with more than 3 nb dies`() {
-        val cell = Cell(true).tick(4)
+    @ParameterizedTest
+    @ValueSource(ints = [4, 5, 6, 7, 8])
+    fun `Living cell with more than 3 nb dies`(amountOfLivingNeighbours: Int) {
+        val cell = Cell(true).tick(amountOfLivingNeighbours)
         assertThat(cell.isAlive).isFalse
     }
 }
