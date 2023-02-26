@@ -2,8 +2,8 @@ package be.swsb.coderetreat
 
 data class CellPosition(val x: Int, val y: Int) {
 
-    fun isAliveNextGiven(currentlyLiving: List<CellPosition>): Boolean {
-        val currentlyLivingNeighbourCount = neighbouringCells(onlyConsider = currentlyLiving).count()
+    fun isAliveNext(currentlyLiving: List<CellPosition>): Boolean {
+        val currentlyLivingNeighbourCount = neighbouringCells().count { it in currentlyLiving }
 
         if (this !in currentlyLiving) {
             return currentlyLivingNeighbourCount == 3
@@ -16,12 +16,17 @@ data class CellPosition(val x: Int, val y: Int) {
         }
     }
 
-    fun neighbouringCells(onlyConsider: List<CellPosition>? = null): List<CellPosition> {
+    internal fun neighbouringCells(): List<CellPosition> {
         return (-1..1)
             .flatMap { ny ->
                 (-1..1)
                     .filterNot { nx -> nx == 0 && ny == 0 }
-                    .map { nx -> CellPosition(nx + x, ny + y) }
-            }.filter { onlyConsider == null || it in onlyConsider }
+                    .map { nx -> CellPosition(nx + this.x, ny + this.y) }
+            }
     }
 }
+
+fun unionCellPositionsFor(cellPositions: List<CellPosition>) =
+    cellPositions
+        .flatMap { it.neighbouringCells() }
+        .distinct()
