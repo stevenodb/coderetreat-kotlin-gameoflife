@@ -1,12 +1,11 @@
 package be.swsb.coderetreat
 
-class Universe(val livingCellPositions: Set<CellPosition>) {
-    constructor(vararg livingCellPositions: CellPosition) : this(setOf(*livingCellPositions))
+class Universe(val livingCellPositions: List<CellPosition>) {
+    constructor(vararg livingCellPositions: CellPosition) : this(livingCellPositions.asList())
 
     fun tick(): Universe {
-        val newLivingCells = livingCellPositions.filter { it.isAliveGiven(currentlyLiving = livingCellPositions) }.toSet()
-        val deadCells = livingCellPositions.flatMap { it.neighbouringCells() } - livingCellPositions
-        val birthedCells = deadCells.filter { it.neighbouringCells(onlyConsider = livingCellPositions).count() == 3 }.toSet()
-        return Universe(newLivingCells + birthedCells)
+        val cellsToConsider = livingCellPositions.flatMap { it.neighbouringCells() }.distinct()
+        val newLivingCells = cellsToConsider.filter { it.isAliveNextGiven(currentlyLiving = livingCellPositions) }.distinct()
+        return Universe(newLivingCells)
     }
 }
