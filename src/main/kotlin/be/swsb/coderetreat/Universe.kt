@@ -17,21 +17,5 @@ class Universe(val livingCellPositions: Set<CellPosition>) {
     }
 
     private fun livingNeighbourCellCount(cellPosition: CellPosition): Int =
-        cellPosition.neighbouringCells { it in livingCellPositions }.count()
-}
-
-data class CellPosition(val x: Int, val y: Int) {
-
-    fun neighbouringCells(filterFunction: (CellPosition) -> Boolean = { true }): List<CellPosition> {
-        val allNeighbouringPositions =
-            (-1..1)
-                .flatMap { ny -> (-1..1)
-                    .filterNot { nx -> nx == 0 && ny == 0 }
-                    .map { nx -> CellPosition(nx, ny) } }
-        return allNeighbouringPositions
-            .map { this + it }
-            .filter(filterFunction)
-    }
-
-    private operator fun plus(other: CellPosition) = CellPosition(x + other.x, y + other.y)
+        cellPosition.neighbouringCells().count{ it in livingCellPositions }
 }
