@@ -2,8 +2,8 @@ package be.swsb.coderetreat
 
 data class CellPosition(val x: Int, val y: Int) {
 
-    fun isAliveGiven(livingCellPositions: Set<CellPosition>): Boolean {
-        return when (neighbouringCells(onlyConsider = livingCellPositions).count()) {
+    fun isAliveGiven(currentlyLiving: Set<CellPosition>): Boolean {
+        return when (neighbouringCells(onlyConsider = currentlyLiving).count()) {
             in 0..1 -> false
             in 2..3 -> true
             in 4..8 -> false
