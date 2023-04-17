@@ -5,7 +5,9 @@ class Universe(val livingCellPositions: List<CellPosition>) {
 
     fun tick(): Universe {
         val cellsToConsider = unionCellPositionsFor(livingCellPositions)
-        val newLivingCells = cellsToConsider.filter { it.isAliveNext(currentlyLiving = livingCellPositions) }.distinct()
+        val newLivingCells = cellsToConsider
+            .filter { it.isAliveNext(currentlyLiving = livingCellPositions) }
+            .distinct()
         return Universe(newLivingCells)
     }
 }
